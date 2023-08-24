@@ -1,0 +1,30 @@
+{
+  "name": "upd-commander",
+  "version": "0.0.0",
+  "description": "A very simple UDP server to execute pre-defined shell commands on a remote machine.",
+  "main": "main.mjs",
+  "scripts": {
+    "format": "prettier --write .",
+    "start": "node main.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IMAGINARY/udp-commander.git"
+  },
+  "author": {
+    "name": "Christian Stussak",
+    "email": "christian.stussak@imaginary.org"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IMAGINARY/udp-commander/issues"
+  },
+  "homepage": "https://github.com/IMAGINARY/udp-commander#readme",
+  "devDependencies": {
+    "prettier": "^3.0.2"
+  },
+  "dependencies": {
+    "yargs": "^17.7.2"
+  }
+}
