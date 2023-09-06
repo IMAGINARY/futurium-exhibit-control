@@ -1,11 +1,12 @@
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
+import { createConsola } from 'consola';
 
 import Server from './server.mjs';
 
 function main() {
   const argv = yargs(hideBin(process.argv))
-    .usage('Usage: $0 [options]')
+    .usage('Usage: $0 [options] [command1=action1] [command2=action2] ..')
     .option('port', {
       alias: 'p',
       type: 'number',
@@ -26,14 +27,37 @@ function main() {
     })
     .option('verbose', {
       alias: 'v',
-      type: 'boolean',
-      description: 'Run with verbose logging',
-      default: false,
+      type: 'count',
+      description:
+        'Run with verbose logging. Specify multiple times for more verbosity',
+      default: 0,
     })
-    .strict(true)
+    .strictOptions(true)
     .parse();
 
-  const server = new Server(argv);
+  const logger = createConsola({ fancy: false, level: argv.verbose + 1 });
+  if (argv.dryRun) logger.log('Dry run. No actions will be executed');
+
+  const commands = Object.fromEntries(
+    argv._.map((cmdSpec) => cmdSpec.split('=', 2)).map(([cmd, action]) => [
+      cmd.trim(),
+      action ?? '',
+    ]),
+  );
+
+  const options = {
+    port: argv.port,
+    dryRun: argv.dryRun,
+    logger,
+    commands,
+  };
+
+  try {
+    const server = new Server(options);
+  } catch (error) {
+    logger.error(error);
+    process.exit(1);
+  }
 }
 
 main();
