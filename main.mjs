@@ -19,6 +19,10 @@ function main() {
       },
       default: 2346,
     })
+    .option('allow', {
+      type: 'array',
+      description: 'Allow commands from these IP addresses',
+    })
     .option('dry-run', {
       alias: 'n',
       type: 'boolean',
@@ -48,6 +52,7 @@ function main() {
   const options = {
     port: argv.port,
     dryRun: argv.dryRun,
+    allow: argv.allow,
     logger,
     commands,
   };

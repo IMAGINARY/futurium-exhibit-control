@@ -2,6 +2,7 @@ import dgram from 'node:dgram';
 import { spawn } from 'node:child_process';
 import { promisify } from 'node:util';
 
+import ipAddr from 'ipaddr.js';
 import escape from 'js-string-escape';
 
 class Server {
@@ -42,6 +43,14 @@ class Server {
     this.commands.set(command, action);
   }
 
+  isAddressAllowed(address) {
+    return (
+      this.options.allow === undefined ||
+      this.options.allow.indexOf(address) !== -1 ||
+      this.options.allow.indexOf(ipAddr.process(address).toString()) !== -1
+    );
+  }
+
   handleErrorEvent(error) {
     console.error(`Server error:\n${error.stack}`);
     this.serverSocket.close();
@@ -57,6 +66,12 @@ class Server {
     this.logger.info(
       `Message '${escape(remainingMessage)}' received from ${address}:${port}`,
     );
+    if (!this.isAddressAllowed(address)) {
+      this.logger.warn(
+        `Address ${address} is not allowed to issue commands. Aborting.`,
+      );
+      return;
+    }
     while (remainingMessage.length > 0) {
       let command;
       ({ command, remainingMessage } = this.tokenizeMessage(remainingMessage));
