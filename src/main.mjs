@@ -37,6 +37,7 @@ function main() {
         'Run with verbose logging. Specify multiple times for more verbosity',
       default: 0,
     })
+    .wrap(yargs().terminalWidth())
     .strictOptions(true)
     .parse();
 
