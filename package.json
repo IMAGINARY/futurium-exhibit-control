@@ -1,6 +1,6 @@
 {
   "name": "upd-commander",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A very simple UDP server to execute pre-defined shell commands on a remote machine.",
   "main": "main.mjs",
   "bin": {
