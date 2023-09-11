@@ -21,7 +21,8 @@ function main() {
     })
     .option('allow', {
       type: 'array',
-      description: 'Allow commands from these IP addresses',
+      description:
+        'Only allow commands from these IP addresses. Allow all if not specified',
     })
     .option('dry-run', {
       alias: 'n',
