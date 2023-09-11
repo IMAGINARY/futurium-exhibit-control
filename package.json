@@ -3,9 +3,12 @@
   "version": "0.0.0",
   "description": "A very simple UDP server to execute pre-defined shell commands on a remote machine.",
   "main": "main.mjs",
+  "bin": {
+    "udp-commander": "./udp-commander"
+  },
   "scripts": {
     "format": "prettier --write .",
-    "start": "node src/main.mjs",
+    "start": "./udp-commander",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
