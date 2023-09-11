@@ -27,7 +27,7 @@ or, when installed globally, via
 udp-commander [options] [command1=action1] [command2=action2] ..
 ```
 The following options are available:
-```shell
+```
 $ udp-commander --help
 Usage: udp-commander [options] [command1=action1] [command2=action2] ..
 
